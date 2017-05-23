@@ -140,3 +140,4 @@ if __name__ == '__main__':
     print('executor num_iteration: {0}'.format(args.iter_num))
     executor_time = executor(args.iter_num)
     print("executor {0} ms / iteration".format(executor_time))
+    profiler.dump_profile()

@@ -51,6 +51,8 @@ class GraphExecutor : public Executor {
   struct OpNode {
     // The name of the operator
     const char* opr_name;
+    // The name of the attribute
+    const char* attr_name;
     // the context of the node
     Context ctx;
     // The executor

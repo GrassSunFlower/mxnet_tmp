@@ -14,7 +14,7 @@ template<>
 Operator *CreateOp<gpu>(BatchNormParam param, int dtype) {
   Operator *op = NULL;
 #if MXNET_USE_CUDNN == 1 && CUDNN_MAJOR >= 5
-  if (!param.use_global_stats) {
+  if (!param.use_global_stats && !param.fix_linear_trans) {
     MSHADOW_REAL_TYPE_SWITCH(dtype, DType, {
       op = new CuDNNBatchNormOp<DType>(param);
     })

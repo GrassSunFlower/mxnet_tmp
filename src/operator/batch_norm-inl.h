@@ -183,7 +183,7 @@ class BatchNormOp : public Operator {
       tmp *= gvar;
       gmean += tmp;
       // assign
-      if (!param_.fix_gamma || !param_.fix_linear_trans) {
+      if (!param_.fix_gamma && !param_.fix_linear_trans) {
         Assign(gslope, req[batchnorm::kGamma],
                sumall_except_dim<1>(
                    grad * (data - broadcast<1>(mean, data.shape_)) /
@@ -200,7 +200,7 @@ class BatchNormOp : public Operator {
       Assign(gbias, req[batchnorm::kBeta], sumall_except_dim<1>(grad));
     } else {
       // use global statistics with freeze moving mean and var.
-      if (!param_.fix_gamma || !param_.fix_linear_trans) {
+      if (!param_.fix_gamma && !param_.fix_linear_trans) {
         Assign(gslope, req[batchnorm::kGamma],
                sumall_except_dim<1>(
                    grad * (data - broadcast<1>(moving_mean, data.shape_)) /
